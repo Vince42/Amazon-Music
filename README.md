@@ -131,6 +131,34 @@ PYTHONPATH=. python examples/search.py Adele 25
 PYTHONPATH=. python examples/play-album.py B0170UQ0OC
 ```
 
+Syncing your purchased/library tracks with local files
+-----------------------------------------------------
+
+Amazon does not provide an official public API for purchased MP3 management. This project can still help with a **metadata-only sync workflow** that avoids downloading or bypassing DRM/controls.
+
+Use `examples/sync-bought-music.py` to:
+
+* Sign in with your account (interactive prompt or environment variables).
+* Read your Amazon Music library track metadata.
+* Scan a local music folder for audio files.
+* Create a JSON report showing:
+  * tracks in your online library missing locally;
+  * local tracks that don't match online library metadata.
+
+```sh
+PYTHONPATH=. python examples/sync-bought-music.py --music-dir /path/to/Music
+```
+
+Optional non-interactive usage:
+
+```sh
+AMAZON_EMAIL='you@example.com' AMAZON_PASSWORD='***' \
+PYTHONPATH=. python examples/sync-bought-music.py --music-dir /path/to/Music --output sync-report.json
+```
+
+This script is intended for account/library reconciliation only and does not download tracks.
+
+
 Background
 ----------
 I have a long term plan to build an integrated smart home with voice assistant (possibly using the likes of [spaCy](https://spacy.io/), [Snowboy](https://snowboy.kitt.ai/), [openHAB](https://www.openhab.org/), [Mopidy](https://www.mopidy.com/) and [respeaker-avs](https://github.com/respeaker/avs)). As an Amazon Prime subscriber, I get access to Prime Music - which just about covers my streaming audio needs. Unfortunately, Alexa Voice Service [only allows people actively working with Amazon on commercial products](https://github.com/alexa-pi/AlexaPi/wiki/Q&A-(FAQ)#does-alexapi-support-amazon-music) under NDA to access Amazon Music.
